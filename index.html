@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption</title>
+</head>
+<body>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        input[type="text"]{
+            width: 100%;
+            height: 30px;
+            padding: 0 0 0 5px;
+        }
+        .wrapperflex table{
+            padding: 10px 5px;
+            /* border: 2px solid black; */
+            width: 350px;
+        }
+        .wrapperflex table th:first-child{
+            background-color: #F0F0F0;
+            border: 1px solid #747373;
+            height: 30px;
+            border-radius: 3px;
+        }
+        .wrapperflex table td{
+            border: 3px solid white;
+        }
+        .wrapperflex table textarea{
+            width: 100%;
+            resize: vertical;
+        }
+        .wrapperflex table button{
+            width: 100%;
+            height: 30px;
+        }
+        .wrapperAll{
+            /* background-color: aquamarine; */
+            display: flex;
+            /* align-items: center; */
+            justify-content: center;
+            height: 100vh;
+        }
+    </style>
+    <div class="wrapperAll">
+        <div class="wrapperflex">
+            <table>
+                <tr>
+                    <th colspan="2">Le texte à crypter ou décrypter :</th>
+                </tr>
+                <tr>
+                    <td colspan="2"><textarea name="message" id="textid" rows="5"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="text" placeholder="enter your key" id="key"></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td colspan="1">
+                        chiffre de cesar <input type="radio" name="radio" checked>
+                    </td>
+                    <td colspan="1">
+                        chiffre de vigenère <input type="radio" name="radio">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"><button id="crypter">crypter</button></td>
+                    <td colspan="1"><button id="decrypt">decrypt</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><textarea name="message" id="textid2" rows="5"></textarea></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        var input = document.getElementById("textid");
+        var output = document.getElementById("textid2");
+        var key = document.getElementById("key");
+        var alphabet  = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+        var btncrypter = document.getElementById("crypter");
+        var btndecrypt = document.getElementById("decrypt");
+        btncrypter.addEventListener("click", ()=>{
+            var inputvalue = input.value;
+            var keyvalue = Number(key.value);
+            var inputarr = inputvalue.split("");
+            var outputresarr = [];
+            var inputnumarr = [];
+            for(let i=0; i<inputarr.length; i++){
+                if(inputarr[i] == ' '){
+                    inputnumarr.push(" ");
+                    outputresarr.push(" ")
+                }
+                else{
+                    inputnumarr.push(alphabet.indexOf(inputarr[i]) + keyvalue);
+                    outputresarr.push(alphabet[inputnumarr[i]])
+                }
+            }
+            var res1 = outputresarr.join("");
+            output.innerHTML = res1;
+        })
+        btndecrypt.addEventListener("click", ()=>{
+            var outputvalue = output.value;
+            var keyvalue = Number(key.value);
+            var outputarr = outputvalue.split("");
+            var inputresarr = [];
+            var outputnumarr = [];
+            for(let i=0; i<outputarr.length; i++){
+                if(outputarr[i] == ' '){
+                    outputnumarr.push(" ");
+                    inputresarr.push(" ")
+                }
+                else{
+                    outputnumarr.push(alphabet.indexOf(outputarr[i]) - keyvalue);
+                    inputresarr.push(alphabet[outputnumarr[i]])
+                }
+                
+            }
+            var res2 = inputresarr.join("");
+            input.innerHTML = res2;
+        })
+    </script>
+</body>
+</html>
