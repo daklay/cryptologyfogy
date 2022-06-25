@@ -87,7 +87,7 @@
         var btncrypter = document.getElementById("crypter");
         var btndecrypt = document.getElementById("decrypt");
         btncrypter.addEventListener("click", ()=>{
-            var inputvalue = input.value;
+            var inputvalue = input.value.toLowerCase() ;
             var keyvalue = Number(key.value);
             var inputarr = inputvalue.split("");
             var outputresarr = [];
@@ -106,7 +106,7 @@
             output.innerHTML = res1;
         })
         btndecrypt.addEventListener("click", ()=>{
-            var outputvalue = output.value;
+            var outputvalue = output.value.toLowerCase();
             var keyvalue = Number(key.value);
             var outputarr = outputvalue.split("");
             var inputresarr = [];
