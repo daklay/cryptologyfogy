@@ -27,7 +27,6 @@ select.addEventListener("change", ()=>{
     }
 })
 
-// * err in cesar if > 25 ...
 
 function cesar_crypter(){
     var inputvalue = input.value.toLowerCase() ;
@@ -52,11 +51,12 @@ function cesar_crypter(){
     output.innerHTML = res1;
 }
 function cesar_decrypt(){
-    var outputvalue = output.value.toLowerCase();
+    var outputvalue = input.value.toLowerCase();
     var keyvalue = Number(key.value);
     var outputarr = outputvalue.split("");
     var inputresarr = [];
     var outputnumarr = [];
+    var outputnumarrZ = [];
     for(let i=0; i<outputarr.length; i++){
         if(outputarr[i] == ' '){
             outputnumarr.push(" ");
@@ -64,12 +64,19 @@ function cesar_decrypt(){
         }
         else{
             outputnumarr.push(alphabet.indexOf(outputarr[i]) - keyvalue);
-            inputresarr.push(alphabet[outputnumarr[i]])
+            outputnumarrZ.push(alphabet.indexOf(outputarr[i]));
+            if(keyvalue > outputnumarrZ[i]){
+                var x = 25 - (keyvalue - outputnumarrZ[i] - 1);
+                inputresarr.push(alphabet[x])
+            }
+            else{
+                inputresarr.push(alphabet[outputnumarr[i]])
+            }
         }
         
     }
     var res2 = inputresarr.join("");
-    input.innerHTML = res2;
+    output.innerHTML = res2;
 }
 
 // * vigenere algo
