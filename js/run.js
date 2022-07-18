@@ -102,24 +102,34 @@ function vigenere_crypter(){
     output.innerHTML = res1;
 }
 function vigenere_decryp(){
-    var outputvalue = output.value.toLowerCase();
+    var outputvalue = input.value.toLowerCase();
     var keyvalue = key.value;
     var outputarr = outputvalue.split("");
+    var outputarrN = [];
     var keyarr = keyvalue.split("");
     var inputresarr = [];
     var outputnumarr = [];
+    var inputresarrNum = [];
     var cp = 0;
     // !the input nummarr where ww gonna stock the res
 
     for(let i=0; i<outputarr.length; i++){
-        console.log(cp)
+        // console.log(cp)
         outputnumarr.push(alphabet.indexOf(keyarr[cp]))
+        outputarrN.push(alphabet.indexOf(outputarr[i]));
         if(outputnumarr[i] > 25){
             outputnumarr[i] -= 26;
         }
+        var x = outputarrN[i] - outputnumarr[i]
+        if(x<0){
+            
+        }
+        inputresarrNum.push(x)
         inputresarr.push(alphabet[outputnumarr[i]]);
         cp != keyvalue.length-1 ? cp++ : cp=0;
     }
     var res2 = inputresarr.join(""); 
     output.innerHTML = res2;
 }
+
+// alphabet.indexOf(outputarr) outputnumarr
