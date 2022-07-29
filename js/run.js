@@ -18,7 +18,7 @@ select.addEventListener("change", ()=>{
             break;
         case 'vigenere' :
             btncrypter.addEventListener("click", vigenere_crypter);
-            btndecrypt.addEventListener("click", cesar_decrypt);
+            btndecrypt.addEventListener("click", vigenere_decryp);
             break;
         case 'transposition' :
             btncrypter.addEventListener("click", cesar_crypter);
@@ -27,6 +27,7 @@ select.addEventListener("change", ()=>{
     }
 })
 
+// * cesar algo
 
 function cesar_crypter(){
     var inputvalue = input.value.toLowerCase() ;
@@ -102,34 +103,39 @@ function vigenere_crypter(){
     output.innerHTML = res1;
 }
 function vigenere_decryp(){
-    var outputvalue = input.value.toLowerCase();
-    var keyvalue = key.value;
-    var outputarr = outputvalue.split("");
-    var outputarrN = [];
-    var keyarr = keyvalue.split("");
-    var inputresarr = [];
-    var outputnumarr = [];
+    var value = input.value.toLowerCase();
+    var keyv = key.value;
+    var value_arr = value.split("");
+    var valuearr_index = [];
+    var key_arr = keyv.split("");
+    var result_arr = [];
+    var resultarr_index = [];
     var inputresarrNum = [];
     var cp = 0;
+    var alphabet_cp = 24
     // !the input nummarr where ww gonna stock the res
 
-    for(let i=0; i<outputarr.length; i++){
+    for(let i=0; i<value_arr.length; i++){
         // console.log(cp)
-        outputnumarr.push(alphabet.indexOf(keyarr[cp]))
-        outputarrN.push(alphabet.indexOf(outputarr[i]));
-        if(outputnumarr[i] > 25){
-            outputnumarr[i] -= 26;
+        resultarr_index.push(alphabet.indexOf(key_arr[cp]));
+        valuearr_index.push(alphabet.indexOf(value_arr[i]));
+
+        if(resultarr_index[i] > 25){
+            resultarr_index[i] -= 26;
         }
-        var x = outputarrN[i] - outputnumarr[i]
+        var x = valuearr_index[i] - resultarr_index[i]
+        // we can start from the key val and do it in reverse ,the +2 is bc a is 0
         if(x<0){
-            
+            var time_to_loop = resultarr_index[i] - (valuearr_index[i]+2)
+            x = alphabet_cp - (time_to_loop);
         }
         inputresarrNum.push(x)
-        inputresarr.push(alphabet[outputnumarr[i]]);
-        cp != keyvalue.length-1 ? cp++ : cp=0;
+        // result_arr.push(alphabet[resultarr_index[i]]);
+        result_arr.push(alphabet[inputresarrNum[i]]);
+        cp != keyv.length-1 ? cp++ : cp=0;
     }
-    var res2 = inputresarr.join(""); 
-    output.innerHTML = res2;
+    var result = result_arr.join(""); 
+    output.innerHTML = result;
 }
 
-// alphabet.indexOf(outputarr) outputnumarr
+// alphabet.indexOf(value_arr) outputnumarr
